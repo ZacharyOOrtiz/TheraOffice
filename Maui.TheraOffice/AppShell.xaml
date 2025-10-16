@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="Maui.TheraOffice.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:Maui.TheraOffice"
+    xmlns:view="clr-namespace:Maui.TheraOffice.Views"
+    Title="Maui.TheraOffice">
+
+    <ShellContent
+        Title="Home"
+        ContentTemplate="{DataTemplate local:MainPage}"
+        Route="MainPage" />
+
+    <ShellContent
+        Title="PatientDetail"
+        ContentTemplate="{DataTemplate view:PatientView}"
+        Route="Patient" />
+
+    <ShellContent
+        Title="PhysicianDetail"
+        ContentTemplate="{DataTemplate view:PhysicianView}"
+        Route="Physician" />
+
+    <ShellContent
+        Title="AppointmentDetail"
+        ContentTemplate="{DataTemplate view:AppointmentView}"
+        Route="Appointment" />
+
+</Shell>

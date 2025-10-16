@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Maui.TheraOffice.Views.AppointmentView"
+             Title="AppointmentView"
+             NavigatedTo="ContentPage_NavigatedTo">
+    <VerticalStackLayout>
+        <Label Text="Patient ID"/>
+        <Entry Text="{Binding PatientId}"/>
+        <Label Text="Patient"/>
+        <Entry Text="{Binding Patient}"/>
+        <Label Text="Physician ID"/>
+        <Entry Text="{Binding PhysicianId}"/>
+        <Label Text="Physician"/>
+        <Entry Text="{Binding Physician}"/>
+        <Label Text="Appointment Date and Time (DD/MM/YYYY HH:MM:SS AM or PM)"/>
+        <Entry Text="{Binding ApptDateTime}"/>
+        <Button Text="Ok" Clicked="OkClicked"/>
+        <Button Text="Cancel" Clicked="CancelClicked"/>
+        
+        <!-- <ListView ItemsSource="{Binding Appointments}"/> -->
+            
+    </VerticalStackLayout>
+</ContentPage>

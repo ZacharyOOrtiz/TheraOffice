@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Maui.TheraOffice.Views.PatientView"
+             Title="PatientView"
+             NavigatedTo="ContentPage_NavigatedTo">
+    <VerticalStackLayout>
+        <Label Text="Name"/>
+        <Entry Text="{Binding Name}"/>
+        <Label Text="Address"/>
+        <Entry Text="{Binding Address}"/>
+        <Label Text="Birth Date"/>
+        <Entry Text="{Binding BirthDate}"/>
+        <Label Text="Race"/>
+        <Entry Text="{Binding Race}"/>
+        <Label Text="Gender"/>
+        <Entry Text="{Binding Gender}"/>
+        <Label Text="Additional Medical Notes (Previous diagnoses or prescribed medication)"/>
+        <Entry Text="{Binding MedNotes}"/>
+        <Button Text="Ok" Clicked="OkClicked"/>
+        <Button Text="Cancel" Clicked="CancelClicked"/>
+    </VerticalStackLayout>
+</ContentPage>
