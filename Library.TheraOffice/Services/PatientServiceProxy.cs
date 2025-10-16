@@ -6,20 +6,24 @@ namespace Library.TheraOffice.Services;
 
 public class PatientServiceProxy
 {
-    private List<Patient?> patientRecords;
+    private List<Patient?> patientRecords {get; set;}
     private PatientServiceProxy()
     {
         patientRecords = new List<Patient?>();
     }
 
     private static PatientServiceProxy? instance;
+    private static object instanceLock = new object();
     public static PatientServiceProxy Current
     {
         get
         {
-            if (instance == null)
+            lock (instanceLock)
             {
-                instance = new PatientServiceProxy();
+                if (instance == null)
+                {
+                    instance = new PatientServiceProxy();
+                }
             }
 
             return instance;
@@ -34,6 +38,18 @@ public class PatientServiceProxy
         }
     }
 
+    public Patient? GetById(int id)
+    {
+        if (id <= 0)
+        {
+            return null;
+        }
+        else
+        {
+            return Patients.FirstOrDefault(p => p?.Id == id);
+        }
+    }
+
     public Patient? Create(Patient? patient)
     {
         if (patient == null)
@@ -41,18 +57,44 @@ public class PatientServiceProxy
             return null;
         }
 
-        var maxId = -1;
-        if (patientRecords.Any())
+        if (patient.Id <= 0)
         {
-            maxId = patientRecords.Select(b => b?.Id ?? -1).Max();
+            var maxId = -1;
+            if (patientRecords.Any())
+            {
+                maxId = patientRecords.Select(b => b?.Id ?? -1).Max();
+            }
+            else
+            {
+                maxId = 0;
+            }
+            patient.Id = ++maxId;
+            patientRecords.Add(patient);
         }
         else
         {
-            maxId = 0;
+            var patientToEdit = Patients.FirstOrDefault(p => (p?.Id ?? 0) == patient.Id);
+
+            if (patientToEdit != null)
+            {
+                var index = Patients.IndexOf(patientToEdit);
+                Patients.RemoveAt(index);
+                patientRecords.Insert(index, patient);
+            }
         }
-        patient.Id = ++maxId;
-        patientRecords.Add(patient);
 
         return patient;
+    }
+
+    public Patient? Delete(int id)
+    {
+        //get patient object
+        var patientToDelete = patientRecords
+            .Where(b => b != null)
+            .FirstOrDefault(b => (b?.Id ?? -1) == id);
+        //delete it!
+        patientRecords.Remove(patientToDelete);
+
+        return patientToDelete;
     }
 }

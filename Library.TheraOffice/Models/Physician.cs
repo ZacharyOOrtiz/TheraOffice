@@ -1,3 +1,5 @@
+using Library.TheraOffice.Services;
+
 namespace Library.TheraOffice.Models
 {
     public class Physician
@@ -9,33 +11,36 @@ namespace Library.TheraOffice.Models
         public int Id {get; set;}
         public List<DateTime?> Schedule {get; set;} = new List<DateTime?>();
 
-        public bool IsAvailable(DateTime apptDateTime)
-        {
-            // 1. Check for double-booking
-            if (Schedule.Contains(apptDateTime))
+        public string Display
+        {        
+            get
             {
-                return false;
+                return ToString();
             }
-
-            // 2. Check for valid business hours (Mon-Fri, 8am to 5pm)
-            // Checks if hour is before 8 AM or is 5 PM or later
-            if (apptDateTime.Hour < 8 || apptDateTime.Hour >= 17) 
-            {
-                return false;
-            }
-
-            // 3. Check for weekdays
-            if (apptDateTime.DayOfWeek == DayOfWeek.Saturday || apptDateTime.DayOfWeek == DayOfWeek.Sunday)
-            {
-                return false;
-            }
-
-            return true;
         }
 
         public override string ToString()
         {
-            return $"{Id}. Name: {Name}\n License Number: {LicenseNum}\n Graduation Date: {GradDate}\n Specializations: {Specs}\n";
+            return $"{Id}. Name: {Name} - License Number: {LicenseNum} - Graduation Date: {GradDate} - Specializations: {Specs}";
+        }
+
+        public Physician()
+        {
+
+        }
+
+        public Physician(int id)
+        {
+            var physicianCopy = PhysicianServiceProxy.Current.Physicians.FirstOrDefault(p => (p?.Id ?? 0) == id);
+            
+            if (physicianCopy != null)
+            {
+                Id = physicianCopy.Id;
+                Name = physicianCopy.Name;
+                LicenseNum = physicianCopy.LicenseNum;
+                GradDate = physicianCopy.GradDate;
+                Specs = physicianCopy.Specs;
+            }
         }
     }
 }
