@@ -1,0 +1,48 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Maui.TheraOffice", "Maui.TheraOffice\Maui.TheraOffice.csproj", "{CF568D47-22DE-4419-8419-DD9F0A74024B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Library.TheraOffice", "Library.TheraOffice\Library.TheraOffice.csproj", "{964782CC-9DAE-4848-A49D-8C352516541F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CF568D47-22DE-4419-8419-DD9F0A74024B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF568D47-22DE-4419-8419-DD9F0A74024B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF568D47-22DE-4419-8419-DD9F0A74024B}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{CF568D47-22DE-4419-8419-DD9F0A74024B}.Debug|x64.Build.0 = Debug|Any CPU
+		{CF568D47-22DE-4419-8419-DD9F0A74024B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{CF568D47-22DE-4419-8419-DD9F0A74024B}.Debug|x86.Build.0 = Debug|Any CPU
+		{CF568D47-22DE-4419-8419-DD9F0A74024B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF568D47-22DE-4419-8419-DD9F0A74024B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF568D47-22DE-4419-8419-DD9F0A74024B}.Release|x64.ActiveCfg = Release|Any CPU
+		{CF568D47-22DE-4419-8419-DD9F0A74024B}.Release|x64.Build.0 = Release|Any CPU
+		{CF568D47-22DE-4419-8419-DD9F0A74024B}.Release|x86.ActiveCfg = Release|Any CPU
+		{CF568D47-22DE-4419-8419-DD9F0A74024B}.Release|x86.Build.0 = Release|Any CPU
+		{964782CC-9DAE-4848-A49D-8C352516541F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{964782CC-9DAE-4848-A49D-8C352516541F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{964782CC-9DAE-4848-A49D-8C352516541F}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{964782CC-9DAE-4848-A49D-8C352516541F}.Debug|x64.Build.0 = Debug|Any CPU
+		{964782CC-9DAE-4848-A49D-8C352516541F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{964782CC-9DAE-4848-A49D-8C352516541F}.Debug|x86.Build.0 = Debug|Any CPU
+		{964782CC-9DAE-4848-A49D-8C352516541F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{964782CC-9DAE-4848-A49D-8C352516541F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{964782CC-9DAE-4848-A49D-8C352516541F}.Release|x64.ActiveCfg = Release|Any CPU
+		{964782CC-9DAE-4848-A49D-8C352516541F}.Release|x64.Build.0 = Release|Any CPU
+		{964782CC-9DAE-4848-A49D-8C352516541F}.Release|x86.ActiveCfg = Release|Any CPU
+		{964782CC-9DAE-4848-A49D-8C352516541F}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
