@@ -7,11 +7,11 @@
     <VerticalStackLayout>
         <Label Text="Patient ID"/>
         <Entry Text="{Binding PatientId}"/>
-        <Label Text="Patient"/>
+        <Label Text="Patient Name"/>
         <Entry Text="{Binding Patient}"/>
         <Label Text="Physician ID"/>
         <Entry Text="{Binding PhysicianId}"/>
-        <Label Text="Physician"/>
+        <Label Text="Physician Name"/>
         <Entry Text="{Binding Physician}"/>
         <Label Text="Appointment Date and Time (DD/MM/YYYY HH:MM:SS AM or PM)"/>
         <Entry Text="{Binding ApptDateTime}"/>
@@ -21,4 +21,5 @@
         <!-- <ListView ItemsSource="{Binding Appointments}"/> -->
             
     </VerticalStackLayout>
+
 </ContentPage>
