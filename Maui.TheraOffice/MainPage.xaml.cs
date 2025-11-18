@@ -11,9 +11,10 @@ public partial class MainPage : ContentPage
 		BindingContext = new MainViewModel();
 	}
 
-	private void PatientAddClicked(object sender, EventArgs e)
+	// ADDED ASYNC AND AWAIT HERE
+	private async void PatientAddClicked(object sender, EventArgs e)
 	{
-		Shell.Current.GoToAsync("//Patient?patientId=0");
+		await Shell.Current.GoToAsync("//Patient?patientId=0");
 	}
 	
 	private void InlinePatientDeleteClicked(object sender, EventArgs e)
@@ -48,10 +49,11 @@ public partial class MainPage : ContentPage
 	    (BindingContext as MainViewModel)?.RefreshAppointments();
     }
     
-	/*
     private void SearchClicked(object sender, EventArgs e)
     {
 		(BindingContext as MainViewModel)?.RefreshPatients();
+		(BindingContext as MainViewModel)?.RefreshPhysicians();
+		(BindingContext as MainViewModel)?.RefreshAppointments();
     }
-	*/
+	
 }
