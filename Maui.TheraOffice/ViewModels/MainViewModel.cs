@@ -20,29 +20,14 @@ public class MainViewModel : INotifyPropertyChanged
             PatientServiceProxy
                 .Current
                 .Patients
-                .Where(
-                    p => (p?.Name?.ToUpper()?.Contains(Query?.ToUpper() ?? string.Empty) ?? false)
-                    || (p?.Address?.ToUpper()?.Contains(Query?.ToUpper() ?? string.Empty) ?? false)
-                    || (p?.BirthDate?.ToUpper()?.Contains(Query?.ToUpper() ?? string.Empty) ?? false)
-                    || (p?.Race?.ToUpper()?.Contains(Query?.ToUpper() ?? string.Empty) ?? false)
-                    || (p?.Gender?.ToUpper()?.Contains(Query?.ToUpper() ?? string.Empty) ?? false)
-                    || (p?.MedNotes?.ToUpper()?.Contains(Query?.ToUpper() ?? string.Empty) ?? false)
-                )
                 .Select(p => new PatientViewModel(p)));
         
         Physicians = new ObservableCollection<PhysicianViewModel?>(
             PhysicianServiceProxy
                 .Current
                 .Physicians
-                .Where(
-                    ph => (ph?.Name?.ToUpper()?.Contains(Query?.ToUpper() ?? string.Empty) ?? false)
-                    || (ph?.LicenseNum?.ToUpper()?.Contains(Query?.ToUpper() ?? string.Empty) ?? false)
-                    || (ph?.GradDate?.ToUpper()?.Contains(Query?.ToUpper() ?? string.Empty) ?? false)
-                    || (ph?.Specs?.ToUpper()?.Contains(Query?.ToUpper() ?? string.Empty) ?? false)
-                )
                 .Select(ph => new PhysicianViewModel(ph)));
         
-        // Expand Patient and Physician functionality so that the query compares against Patient.Name and Physician.Name LATER
         Appointments = new ObservableCollection<AppointmentViewModel?>(
             AppointmentServiceProxy
                 .Current
@@ -50,6 +35,7 @@ public class MainViewModel : INotifyPropertyChanged
                 .Select(a => new AppointmentViewModel(a)));
     }
 
+    /*
     public void RefreshPatients()
     {
         // Make sure the list isn't null
@@ -74,13 +60,43 @@ public class MainViewModel : INotifyPropertyChanged
             }
         }
     }
-
-    /* FOR POTENTIAL LATER REFACTORING
-    public void RefreshPatients()
-    {
-        NotifyPropertyChanged(nameof(Patients));
-    }
     */
+    
+    public async void RefreshPatients()
+    {
+        // 1. Setup the collection
+        if (Patients == null)
+        {
+            Patients = new ObservableCollection<PatientViewModel?>();
+        }
+        else
+        {
+            Patients.Clear();
+        }
+
+        List<Patient?>? patientsFromService;
+
+        // 2. Check if we are searching or listing all
+        if (!string.IsNullOrEmpty(Query))
+        {
+            // If there is text in the search box, hit the API search endpoint
+            patientsFromService = await PatientServiceProxy.Current.Search(Query);
+        }
+        else
+        {
+            // If the search box is empty, show the local cached list
+            patientsFromService = PatientServiceProxy.Current.Patients;
+        }
+
+        // 3. Update the UI
+        if (patientsFromService != null)
+        {
+            foreach (var patient in patientsFromService)
+            {
+                Patients.Add(new PatientViewModel(patient));
+            }
+        }
+    }
     
     public PatientViewModel? SelectedPatient{ get; set; }
 
