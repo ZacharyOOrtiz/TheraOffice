@@ -1,0 +1,6 @@
+@API.TheraOffice_HostAddress = http://localhost:5207
+
+GET {{API.TheraOffice_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
