@@ -12,18 +12,17 @@
                 Text="TheraOffice"
                 Style="{StaticResource Headline}"
                 SemanticProperties.HeadingLevel="Level1" />
-
-<!--        FOR SEARCH
+            
+            <!-- SEARCH BROKEN -->
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="10*">
-                    </ColumnDefinition>
+                    <ColumnDefinition Width="10*"/>
+                    <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <Entry Grid.Column="0" Text="{Binding Query}"/>
                 <Button Grid.Column="1" Text="Search" Clicked="SearchClicked"/>
             </Grid>
--->
-
+            
             <ListView ItemsSource="{Binding Patients}" SelectedItem="{Binding SelectedPatient}">
                 <ListView.ItemTemplate>
                     <DataTemplate>

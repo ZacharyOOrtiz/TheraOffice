@@ -21,5 +21,4 @@
         <!-- <ListView ItemsSource="{Binding Appointments}"/> -->
             
     </VerticalStackLayout>
-
 </ContentPage>
