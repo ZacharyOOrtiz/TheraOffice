@@ -7,65 +7,40 @@ public class PatientEC
 {
     public Patient? GetById(int id)
     {
-        return FakeDatabase.Patients.FirstOrDefault(b => b.Id == id);
+        return Filebase.Current.Patients.FirstOrDefault(b => b.Id == id);
     }
     
     public IEnumerable<Patient> GetPatients()
     {
-        return FakeDatabase.Patients
+        return Filebase.Current.Patients
             .Take(5)
             .OrderByDescending(p => p.Id);
     }
     
     public Patient? Create(Patient patient)
     {
-        if (patient == null)
-        {
-            return null;
-        }
-        
-        if (patient.Id <= 0) // Add
-        {
-            var maxId = -1;
-            if (FakeDatabase.Patients.Any())
-            {
-                maxId = FakeDatabase.Patients.Select(b => b?.Id ?? -1).Max();
-            }
-            else
-            {
-                maxId = 0;
-            }
-            patient.Id = ++maxId;
-            FakeDatabase.Patients.Add(patient);
-        }
-        else // Edit
-        {
-            var patientToEdit = FakeDatabase.Patients.FirstOrDefault(p => (p?.Id ?? 0) == patient.Id);
-
-            if (patientToEdit != null)
-            {
-                var index = FakeDatabase.Patients.IndexOf(patientToEdit);
-                FakeDatabase.Patients.RemoveAt(index);
-                FakeDatabase.Patients.Insert(index, patient);
-            }
-        }
-
-        return patient;
+        // Filebase handles the ID generation and Update logic internally now.
+        // We just pass the object to Filebase.
+        return Filebase.Current.Create(patient);
     }
 
     public Patient? Delete(int id)
     {
-        var toRemove = GetById(id);
-        if (toRemove != null)
+        // Retrieve the patient first so we can return it
+        var patient = GetById(id);
+        
+        // Execute the delete in Filebase
+        if (patient != null)
         {
-            FakeDatabase.Patients.Remove(toRemove);
+            Filebase.Current.Delete(id);
         }
-        return toRemove;
+        
+        return patient;
     }
 
     public IEnumerable<Patient?> Search(string query)
     {
-        return FakeDatabase.Patients.Where
+        return Filebase.Current.Patients.Where
         (p =>
             (p?.Name?.ToUpper()?.Contains(query?.ToUpper() ?? string.Empty) ?? false)
             || (p?.Address?.ToUpper()?.Contains(query?.ToUpper() ?? string.Empty) ?? false)

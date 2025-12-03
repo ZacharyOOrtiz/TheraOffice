@@ -1,7 +1,7 @@
 using Library.TheraOffice.Models;
 using Newtonsoft.Json;
 
-namespace API.TheraOffice.Nothing
+namespace API.TheraOffice.Database
 {
     public class Filebase
     {
@@ -28,8 +28,15 @@ namespace API.TheraOffice.Nothing
 
         private Filebase()
         {
-            _root = @"Users/zacharyortiz/temp";
-            _patientRoot = $"{_root}\\Patients";
+            // Updates path to be dynamic for Mac/Windows
+            _root = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+            _patientRoot = Path.Combine(_root, "Patients");
+            
+            // Ensure the directory exists
+            if (!Directory.Exists(_patientRoot))
+            {
+                Directory.CreateDirectory(_patientRoot);
+            }
         }
 
         public int LastPatientKey
@@ -46,28 +53,37 @@ namespace API.TheraOffice.Nothing
 
         public Patient Create(Patient patient)
         {
-            //set up a new Id if one doesn't already exist
+            // Set up a new Id if one doesn't already exist
             if(patient.Id <= 0)
             {
                 patient.Id = LastPatientKey + 1;
             }
 
-            //go to the right place
-            string path = $"{_patientRoot}\\{patient.Id}.json";
-            
+            // Path.Combine handles the slashes for Mac/Windows automatically
+            string path = Path.Combine(_patientRoot, $"{patient.Id}.json");
 
-            //if the item has been previously persisted
+            // If the item has been previously persisted, blow it up (for updates)
             if(File.Exists(path))
             {
-                //blow it up
                 File.Delete(path);
             }
 
-            //write the file
+            // Write the file
             File.WriteAllText(path, JsonConvert.SerializeObject(patient));
 
-            //return the item, which now has an id
             return patient;
+        }
+
+        // NEW METHOD: Added so PatientEC can call it
+        public bool Delete(int id)
+        {
+            string path = Path.Combine(_patientRoot, $"{id}.json");
+            if (File.Exists(path))
+            {
+                File.Delete(path);
+                return true;
+            }
+            return false;
         }
         
         public List<Patient> Patients
@@ -76,20 +92,22 @@ namespace API.TheraOffice.Nothing
             {
                 var root = new DirectoryInfo(_patientRoot);
                 var _patients = new List<Patient>();
-                foreach(var patientFile in root.GetFiles())
+                // Only try to get files if the folder actually exists
+                if (root.Exists)
                 {
-                    var patient = JsonConvert
-                        .DeserializeObject<Patient>
-                        (File.ReadAllText(patientFile.FullName));
-                    if(patient != null)
+                    foreach(var patientFile in root.GetFiles())
                     {
-                        _patients.Add(patient);
+                        var patient = JsonConvert
+                            .DeserializeObject<Patient>
+                            (File.ReadAllText(patientFile.FullName));
+                        if(patient != null)
+                        {
+                            _patients.Add(patient);
+                        }
                     }
-
                 }
                 return _patients;
             }
         }
-        
     }
 }

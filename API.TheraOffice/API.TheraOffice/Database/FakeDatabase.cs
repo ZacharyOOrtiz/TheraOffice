@@ -1,6 +1,6 @@
 using Library.TheraOffice.Models;
 
-namespace API.TheraOffice.Database;
+namespace API.TheraOffice.Nothing;
 
 public static class FakeDatabase
 {
